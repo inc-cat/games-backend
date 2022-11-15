@@ -1,5 +1,5 @@
-// const seed = require('../db/seeds/seed.js')
-// const data = require('../db/data/test-data/index.js')
+const seed = require('../db/seeds/seed.js')
+const data = require('../db/data/test-data/index.js')
 const request = require('supertest')
 
 
