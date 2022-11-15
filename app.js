@@ -10,6 +10,8 @@ app.get('/api/categories', categoryEndpoints.gamesCategories)
 
 app.get('/api/reviews', reviewEndpoints.gamesReviews)
 
+app.get('/api/reviews/:reviewID', reviewEndpoints.gameReviewsByIdentification)
+
 
 
 app.use((req, res, next) => {
