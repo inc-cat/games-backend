@@ -5,9 +5,10 @@ const app = express()
 // app.use(express.json())
 app.get('/api/categories', endpoints.gamesCategories)
 
-// app.use(function(err, req, res, next) {
-//     res.status(err.status).send()
-// })
+
+app.use((req, res, next) => {
+    res.status(404).send({ message: 'NOT FOUND'})
+})
 
 
 
