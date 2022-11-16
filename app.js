@@ -1,7 +1,6 @@
 const express = require('express');
 const categoryEndpoints = require('./control/getCategories.js');
 const reviewEndpoints = require('./control/getReviews');
-
 const app = express();
 
 // app.use(express.json())

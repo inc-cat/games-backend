@@ -1,14 +1,14 @@
 const database = require('../models/getReviewM');
 
 const gamesReviews = function (req, res) {
-    database.getReviews().then(function (currentData) {
-        res.status(200).send({ message: 'ALL OK', currentData });
+    database.getReviews().then(function (reviews) {
+        res.status(200).send({ message: 'ALL OK', reviews });
     });
 };
 
 const gameReviewsByIdentification = function (req, res) {
-    database.getReviewByIdentification(req.params.reviewID).then(function (review) {
-        res.send(review.review);
+    database.getReviewByIdentification(req.params.reviewID).then(function (reviews) {
+        res.send(reviews.review);
     });
 };
 
