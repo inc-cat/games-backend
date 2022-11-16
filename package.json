@@ -1,41 +1,48 @@
 {
-  "name": "be-nc-games",
-  "version": "1.0.0",
-  "description": "bc-nc-games",
-  "main": "index.js",
-  "scripts": {
-    "setup-dbs": "psql -f ./db/setup.sql",
-    "seed": "node ./db/seeds/run-seed.js",
-    "test": "jest",
-    "prepare": "husky install"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/northcoders/be-nc-games.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/northcoders/be-nc-games/issues"
-  },
-  "homepage": "https://github.com/northcoders/be-nc-games#readme",
-  "dependencies": {
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "pg": "^8.8.0",
-    "pg-format": "^1.0.4",
-    "seed": "^0.4.4"
-  },
-  "devDependencies": {
-    "husky": "^7.0.4",
-    "jest": "^27.5.1",
-    "jest-extended": "^2.0.0",
-    "supertest": "^6.3.1"
-  },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "jest-extended/all"
-    ]
-  }
+    "name": "be-nc-games",
+    "version": "1.0.0",
+    "description": "bc-nc-games",
+    "main": "index.js",
+    "scripts": {
+        "setup-dbs": "psql -f ./db/setup.sql",
+        "seed": "node ./db/seeds/run-seed.js",
+        "test": "jest",
+        "prepare": "husky install"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/northcoders/be-nc-games.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/northcoders/be-nc-games/issues"
+    },
+    "homepage": "https://github.com/northcoders/be-nc-games#readme",
+    "prettier": {
+        "tabWidth": 4,
+        "singleQuote": true,
+        "printWidth": 120
+    },
+    "dependencies": {
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "pg": "^8.8.0",
+        "pg-format": "^1.0.4",
+        "seed": "^0.4.4"
+    },
+    "devDependencies": {
+        "husky": "^7.0.4",
+        "jest": "^27.5.1",
+        "jest-extended": "^2.0.0",
+        "nodemon": "^2.0.20",
+        "prettier": "^2.7.1",
+        "supertest": "^6.3.1"
+    },
+    "jest": {
+        "setupFilesAfterEnv": [
+            "jest-extended/all"
+        ]
+    }
 }
