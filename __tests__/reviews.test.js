@@ -18,19 +18,17 @@ describe('GET request for reviews,', function() {
         .get('/api/reviews').expect(200)
         .then(function(res) {
 
-        
-        let entriesBody = res.body.currentData
-        let entriesNoIdentification = entriesBody.map(function(entry){
-          delete entry.review_id
+        const reviewEntries = res.body.currentData.map(function(entry){
           entry.created_at = new Date(entry.created_at)
           return entry
         })        
-        const firstEntry = reviews[0]
-        expectedLength = reviews.length
 
-        // expect(entriesNoIdentification).toEqual((reviews))
-        expect(entriesNoIdentification[0]).toEqual((firstEntry))
-        expect(entriesNoIdentification.length).toEqual(expectedLength)
+        expectedLength = reviews.length
+        expect(reviewEntries.length).toEqual(expectedLength)
+        reviewEntries.forEach(function(currentEntry) {
+            expect(currentEntry).toMatchObject({review_id: expect.any(Number), title:expect.any(String) , designer: expect.any(String), owner: expect.any(String), review_img_url: expect.any(String), review_body: expect.any(String), category: expect.any(String), created_at: expect.any(Date), votes: expect.any(Number)})
+            })
+
         })
     })
     test('Returns 404', function() {
@@ -39,5 +37,3 @@ describe('GET request for reviews,', function() {
         .get('/api/reviewz').expect(404)
     })
 })
-
-
