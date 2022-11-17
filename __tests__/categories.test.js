@@ -4,6 +4,7 @@ const request = require('supertest')
 const db = require('../db/connection')
 const app = require('../app.js');
 
+
 afterAll(() => {
     return db.end();
 });
@@ -40,7 +41,7 @@ describe('GET request for categories.', function () {
     })
 })
 
-describe('GET request for reviews,', function () {
+describe('GET request for reviews.', function () {
     test('Returns 200', function () {
         return request(app)
             .get('/api/reviews')
@@ -49,16 +50,11 @@ describe('GET request for reviews,', function () {
                 expect(res.body.message).toEqual('ALL OK');
             });
     });
-    test('Returns review list.', function () {
+    test('Returns review list sorted by created_at in descending order.', function () {
         return request(app)
             .get('/api/reviews')
             .expect(200)
             .then(function (res) {
-                // const reviewEntries = res.body.reviews.map(function (entry) {
-                //     entry.created_at = new Date(entry.created_at);
-                //     return entry;
-                // });
-
                 expect(res.body.reviews.length).toBeGreaterThan(0);
                 res.body.reviews.forEach(function (currentEntry) {
                     expect(currentEntry).toMatchObject({
@@ -73,12 +69,53 @@ describe('GET request for reviews,', function () {
                         comment_count: expect.any(String) //
                     });
                 });
+                expect(res.body.reviews).toBeSortedBy('created_at', { descending: true })
             });
     });
+
     test('Returns 404', function () {
         return request(app).get('/api/reviewz').expect(404);
     });
+
 });
 
-
-
+describe('GET request for specific review ID', function () {
+    test('Returns 200', function () {
+        return request(app)
+            .get('/api/reviews/1').expect(200)
+            .then(function (res) {
+                expect(res.body.message).toEqual(('ALL OK'))
+            })
+    })
+    test('Returns entry from privded ID typed into URL', function () {
+        return request(app)
+            .get('/api/reviews/1').expect(200)
+            .then(function (res) {
+                expect(res.body.reviews).toMatchObject({
+                    review_id: expect.any(Number),
+                    title: expect.any(String),
+                    category: expect.any(String),
+                    designer: expect.any(String),
+                    owner: expect.any(String),
+                    review_body: expect.any(String),
+                    review_img_url: expect.any(String),
+                    created_at: expect.any(String),
+                    votes: expect.any(Number),
+                })
+            })
+    })
+    test('Returns 404 with incorrect number entered', function () {
+        return request(app)
+            .get('/api/reviews/0').expect(404)
+            .then(function (res) {
+                expect(res.body.message).toBe('NOT FOUND')
+            })
+    })
+    test('Returns 400 with incorrect input', function () {
+        return request(app)
+            .get('/api/reviews/a').expect(400)
+            .then(function (res) {
+                expect(res.body.message).toBe('NUMBERS ONLY')
+            })
+    })
+})
