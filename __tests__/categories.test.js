@@ -83,9 +83,6 @@ describe('GET request for specific review ID', function () {
     test('Returns 200', function () {
         return request(app)
             .get('/api/reviews/1').expect(200)
-            .then(function (res) {
-                expect(res.body.message).toEqual(('ALL OK'))
-            })
     })
     test('Returns entry from privded ID typed into URL', function () {
         return request(app)
@@ -119,3 +116,59 @@ describe('GET request for specific review ID', function () {
             })
     })
 })
+
+describe('GET request for comments linked to specific ID.', function () {
+    test('Returns 200', function () {
+        return request(app)
+            .get('/api/reviews/2/comments').expect(200)
+    })
+    test('Returns array', function () {
+        return request(app)
+            .get('/api/reviews/3/comments')
+            .then(function (res) {
+                expect(Array.isArray(res.body.comments)).toBe(true)
+            })
+    })
+    test('Returns a sorted array of comments linked to specific review ID if applicable.', function () {
+        return request(app)
+            .get('/api/reviews/2/comments')
+            .then(function (res) {
+                res.body.comments.forEach(function (specific) {
+                    expect(specific).toMatchObject({
+                        comment_id: expect.any(Number),
+                        body: expect.any(String),
+                        review_id: expect.any(Number),
+                        author: expect.any(String),
+                        votes: expect.any(Number),
+                        created_at: expect.any(String),
+                    })
+                    expect(res.body.comments).toBeSortedBy('created_at', { descending: true })
+                })
+            })
+    })
+    test('Returns 200 when ID with no comments is typed in.', function () {
+        return request(app)
+            .get('/api/reviews/1/comments').expect(200)
+            .then(function (res) {
+                expect(res.body.comments).toEqual([])
+            })
+    })
+    test('Returns 404 when incorrect invalid ID typed in.', function () {
+        return request(app)
+            .get('/api/reviews/99/comments').expect(404)
+            .then(function (res) {
+                expect(res.body.message).toBe('INVALID ID')
+            })
+    })
+
+    test('Returns 400 when incorrect invalid ID typed in.', function () {
+        return request(app)
+            .get('/api/reviews/a/comments').expect(400)
+            .then(function (res) {
+                expect(res.body.message).toBe('NUMBERS ONLY')
+            })
+    })
+
+
+})
+
