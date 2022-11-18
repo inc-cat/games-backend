@@ -1,5 +1,5 @@
 const db = require('../db/connection.js');
-const format = require("pg-format");
+const checkReviewExists = require('../utils/checkReviewsExist')
 
 const getReviews = function () {
     const queryStr = `SELECT reviews.title, reviews.review_id, reviews.owner, reviews.category, reviews.review_img_url, reviews.created_at, reviews.votes, reviews.designer, COUNT (comments.comment_id) AS comment_count
@@ -13,19 +13,29 @@ const getReviews = function () {
 };
 
 const getReviewByIdentification = function (identificationDigits) {
-    return db.query(format(`SELECT * FROM reviews WHERE review_id = %L`, identificationDigits)).then(function (data) {
+    return db.query(`SELECT * FROM reviews WHERE review_id = $1;`, [identificationDigits]).then(function (data) {
         return data.rows[0];
     });
 };
 
-
-
-
+const commentFromReviewIndentification = function (identificationDigits) {
+    return db.query(
+        `SELECT * FROM comments WHERE review_id = $1 ORDER BY created_at DESC;`, [identificationDigits]).then(function (data) {
+            if (data.rows.length > 0) {
+                return data.rows
+            }
+            else {
+                return checkReviewExists(identificationDigits)
+            }
+        })
+}
 
 
 module.exports = {
     getReviews,
     getReviewByIdentification,
+    commentFromReviewIndentification,
+    checkReviewExists
 };
 
 

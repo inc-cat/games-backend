@@ -9,10 +9,22 @@ app.get('/api/categories', categoryEndpoints.gamesCategories);
 
 app.get('/api/reviews', reviewEndpoints.gamesReviews);
 
+app.get('/api/reviews/:reviewID/comments', reviewEndpoints.commentsByIdentification)
+
 app.get('/api/reviews/:reviewID', reviewEndpoints.gameReviewsByIdentification);
+
 
 app.use((req, res, next) => {
     res.status(404).send({ message: 'NOT FOUND' });
 });
+
+app.use(function (err, req, res, next) {
+    if (err.status && err.message) {
+        res.status(err.status).send({ message: err.message })
+    }
+    else {
+        next(err)
+    }
+})
 
 module.exports = app;
