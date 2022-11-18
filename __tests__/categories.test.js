@@ -117,7 +117,7 @@ describe('GET request for specific review ID', function () {
     })
 })
 
-describe.only('GET request for comments linked to specific ID.', function () {
+describe('GET request for comments linked to specific ID.', function () {
     test('Returns 200', function () {
         return request(app)
             .get('/api/reviews/2/comments').expect(200)
