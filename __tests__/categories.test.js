@@ -172,3 +172,27 @@ describe('GET request for comments linked to specific ID.', function () {
 
 })
 
+describe.only("POST request for new comment.", function () {
+    test("Post new comment to database.", () => {
+        return request(app)
+            .post("/api/reviews/2/comments")
+            .send({
+                username: "bainesface",
+                body: 'I heard theLegend27 defeated an entire army with a single blow.',
+            })
+            .expect(201)
+            .then((res) => {
+                console.log(res.body)
+                expect(res.body).toEqual({
+                    comment: {
+                        author: 'bainesface',
+                        body: 'I heard theLegend27 defeated an entire army with a single blow.',
+                        votes: 0,
+                        comment_id: expect.any(Number),
+                        created_at: expect.any(String),
+                        review_id: expect.any(Number)
+                    },
+                });
+            });
+    });
+});
