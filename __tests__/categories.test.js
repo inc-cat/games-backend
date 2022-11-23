@@ -172,7 +172,7 @@ describe('GET request for comments linked to specific ID.', function () {
 
 })
 
-describe.only("POST request for new comment.", function () {
+describe("POST request for new comment.", function () {
     test("Post new comment to database.", () => {
         return request(app)
             .post("/api/reviews/2/comments")
@@ -182,17 +182,51 @@ describe.only("POST request for new comment.", function () {
             })
             .expect(201)
             .then((res) => {
-                console.log(res.body)
-                expect(res.body).toEqual({
+                expect(res.body).toMatchObject({
                     comment: {
                         author: 'bainesface',
                         body: 'I heard theLegend27 defeated an entire army with a single blow.',
                         votes: 0,
+                        review_id: 2,
                         comment_id: expect.any(Number),
-                        created_at: expect.any(String),
-                        review_id: expect.any(Number)
+                        created_at: expect.any(String)
                     },
                 });
             });
     });
+    test("Returns 400 if username provided is blank", function () {
+        return request(app)
+            .post("/api/reviews/2/comments")
+            .send({
+                username: "",
+                body: 'Usernames are for dorks.',
+            })
+            .expect(400).then(function (res) {
+                expect(res.body.message).toBe('USERNAME NOT PROVIDED')
+            })
+
+    });
+
+    test("Returns 404 for invalid username.", () => {
+        return request(app)
+            .post("/api/reviews/2/comments")
+            .send({
+                username: "your_mother",
+                body: 'please could you bring back some tuna?',
+            })
+            .expect(404).then(function (res) {
+                expect(res.body.message).toBe('INVALID USERNAME')
+            })
+    });
+
+    test("Returns 404 for invalid review ID.", () => {
+        return request(app)
+            .post("/api/reviews/99999/comments")
+            .send({
+                username: "bainesface",
+                body: "urfhhewuoheueferfuh"
+            })
+            .expect(404)
+    })
+
 });
