@@ -230,3 +230,17 @@ describe("POST request for new comment.", function () {
     })
 
 });
+
+describe('PATCH request for review', function () {
+    test('Returns 202 for accepted patch.', function () {
+        return request(app)
+            .patch('/api/reviews/2')
+            .send({
+                review_img_url: 'https://archives.bulbagarden.net/media/upload/thumb/b/b1/151Mew.png/250px-151Mew.png',
+                review_body: 'Farmyard fun!!!!',
+            })
+            .expect(202).then(function (res) {
+                expect(res.body.message).toBe('ACCEPTED')
+            })
+    })
+})
