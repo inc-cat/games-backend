@@ -4,7 +4,9 @@ const reviewEndpoints = require('./control/getReviews');
 const commentEndpoints = require('./control/postComment')
 const patchEndpoints = require('./control/patchReview')
 const app = express();
+const cors = require('cors')
 
+app.use(cors())
 app.use(express.json())
 
 app.get('/api/categories', categoryEndpoints.gamesCategories);
