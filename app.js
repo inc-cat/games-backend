@@ -1,9 +1,11 @@
 const express = require('express');
 const categoryEndpoints = require('./control/getCategories.js');
 const reviewEndpoints = require('./control/getReviews');
+const commentEndpoints = require('./control/postComment')
+const patchEndpoints = require('./control/patchReview')
 const app = express();
 
-// app.use(express.json())
+app.use(express.json())
 
 app.get('/api/categories', categoryEndpoints.gamesCategories);
 
@@ -13,6 +15,10 @@ app.get('/api/reviews/:reviewID/comments', reviewEndpoints.commentsByIdentificat
 
 app.get('/api/reviews/:reviewID', reviewEndpoints.gameReviewsByIdentification);
 
+
+app.post('/api/reviews/:reviewID/comments', commentEndpoints.postComment)
+
+app.patch('/api/reviews/:reviewID', patchEndpoints.reviewFind)
 
 app.use((req, res, next) => {
     res.status(404).send({ message: 'NOT FOUND' });
@@ -26,5 +32,7 @@ app.use(function (err, req, res, next) {
         next(err)
     }
 })
+
+
 
 module.exports = app;
