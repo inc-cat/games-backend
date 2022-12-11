@@ -259,3 +259,18 @@ describe('PATCH request for review', function () {
             })
     })
 })
+
+describe.skip('PATCH request for comment', function () {
+    test('Returns 202 for accepted comment patch', function () {
+        return request(app)
+            .patch('/api/comments/2')
+            .send({
+                body: 'This is fun'
+            })
+            .expect(202).then(function (res) {
+                expect(res.body.review).toMatchObject({
+                    body: 'This is fun'
+                })
+            })
+    })
+})
