@@ -260,7 +260,7 @@ describe('PATCH request for review', function () {
     })
 })
 
-describe.skip('PATCH request for comment', function () {
+describe('PATCH request for comment', function () {
     test('Returns 202 for accepted comment patch', function () {
         return request(app)
             .patch('/api/comments/2')
@@ -268,9 +268,22 @@ describe.skip('PATCH request for comment', function () {
                 body: 'This is fun'
             })
             .expect(202).then(function (res) {
-                expect(res.body.review).toMatchObject({
+                expect(res.body.comment).toMatchObject({
                     body: 'This is fun'
                 })
+            })
+    })
+})
+
+describe('GET list of users.', function () {
+    test('Returns 200.', function () {
+        return request(app)
+            .get('/api/users').expect(200)
+    })
+    test('Returns list of users with information', function () {
+        return request(app)
+            .get('/api/users').expect(200).then(function (res) {
+                expect(res.body.user[0]).toMatchObject({ users: expect.any(String), avatar_url: expect.any(String), name: expect.any(String), username: expect.any(String) })
             })
     })
 })

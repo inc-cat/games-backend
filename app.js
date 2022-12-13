@@ -4,6 +4,7 @@ const reviewEndpoints = require('./control/getReviews');
 const commentEndpoints = require('./control/postComment')
 const patchEndpoints = require('./control/patchReview')
 const patchCEndpoints = require('./control/patchComment')
+const userEndpoints = require('./control/getUsers')
 const app = express();
 const cors = require('cors')
 
@@ -18,11 +19,13 @@ app.get('/api/reviews/:reviewID/comments', reviewEndpoints.commentsByIdentificat
 
 app.get('/api/reviews/:reviewID', reviewEndpoints.gameReviewsByIdentification);
 
+app.get('/api/users', userEndpoints.userControl)
+
 app.post('/api/reviews/:reviewID/comments', commentEndpoints.postComment)
 
 app.patch('/api/reviews/:reviewID', patchEndpoints.reviewFind)
 
-app.patch('/api/comments/commentID', patchCEndpoints.commentFind)
+app.patch('/api/comments/:commentID', patchCEndpoints.commentFind)
 
 app.use((req, res, next) => {
     res.status(404).send({ message: 'NOT FOUND' });
