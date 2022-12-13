@@ -287,3 +287,17 @@ describe('GET list of users.', function () {
             })
     })
 })
+
+describe.only('DELETE specified comment.', function () {
+    test('Returns 200', function () {
+        return request(app)
+            .delete('/api/comments/2').expect(200)
+    })
+    test('Removes specified item from list from ID provided in URL.', function () {
+        return request(app)
+            .delete('/api/comments/2').expect(200).then(function (res) {
+                console.log(res.body)
+                expect(res.body.comment.rows).toEqual([])
+            })
+    })
+})

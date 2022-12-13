@@ -12,7 +12,7 @@ const getComments = function () {
 
 const getCommentByIdentification = function (identificationDigits) {
     return db.query(`SELECT * FROM comments WHERE comment_id = $1;`, [identificationDigits]).then(function (data) {
-        console.log(data.rows)
+        // console.log(data.rows)
         return data.rows[0];
     });
 };
