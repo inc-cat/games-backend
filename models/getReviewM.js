@@ -13,7 +13,8 @@ const getReviews = function () {
 };
 
 const getReviewByIdentification = function (identificationDigits) {
-    return db.query(`SELECT * FROM reviews WHERE review_id = $1;`, [identificationDigits]).then(function (data) {
+    return db.query(`SELECT reviews.title, reviews.review_id, reviews.owner, reviews.review_body, reviews.category, reviews.review_img_url, reviews.created_at, reviews.votes, reviews.designer, COUNT (comments) AS comment_count FROM reviews LEFT JOIN comments ON reviews.review_id = comments.review_id WHERE reviews.review_id = $1 GROUP BY reviews.title, reviews.review_id`, [identificationDigits]).then(function (data) {
+        console.log(data.rows[0])
         return data.rows[0];
     });
 };

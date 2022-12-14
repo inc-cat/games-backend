@@ -84,7 +84,7 @@ describe('GET request for specific review ID', function () {
         return request(app)
             .get('/api/reviews/1').expect(200)
     })
-    test('Returns entry from privded ID typed into URL', function () {
+    test.only('Returns entry from provided ID typed into URL', function () {
         return request(app)
             .get('/api/reviews/1').expect(200)
             .then(function (res) {
@@ -288,7 +288,7 @@ describe('GET list of users.', function () {
     })
 })
 
-describe.only('DELETE specified comment.', function () {
+describe('DELETE specified comment.', function () {
     test('Returns 200', function () {
         return request(app)
             .delete('/api/comments/2').expect(200)
