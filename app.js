@@ -26,6 +26,7 @@ app.get('/api/reviews/:reviewID', reviewEndpoints.gameReviewsByIdentification);
 
 app.get('/api/users', userEndpoints.userControl)
 
+
 app.post('/api/reviews/:reviewID/comments', commentEndpoints.postComment)
 
 app.patch('/api/reviews/:reviewID', patchEndpoints.reviewFind)
@@ -35,9 +36,9 @@ app.patch('/api/comments/:commentID', patchCEndpoints.commentFind)
 app.delete('/api/comments/:commentID', deleteCEndpoints.commentDel)
 
 app.get('/api', function (req, res) {
-    const endpointsJSON = fs.readFile('./endpoints.json')
+    const endpointsJSON = fs.readFile('./info.json')
     return endpointsJSON.then(function (value) {
-        console.log(value)
+        // console.log(value)
         res.status(200).setHeader('content-type', 'application/json').send(value)
     })
 })

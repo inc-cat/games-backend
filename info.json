@@ -1,0 +1,48 @@
+{
+    "api" : {
+        "GET" : {
+            "categories" : {
+                "url-example" : "/api/categories",
+                "info" : "Shows a list of categories for the game entries in the database."
+            },
+            "reviews" : {
+                "url-example" : "/api/reviews",
+                "info" : "Shows review list sorted by the date created in descending order.",
+                "slug" : {
+                    "url-template" : "/api/reviews/1",
+                    "info" : "Shows an individual review for the number provided.",
+                    "slug" : {
+                        "url-template" : "api/review/1/comments",
+                        "info" : "Shows reviews for the game ID provided."
+                    }
+                }
+            },
+            "users" : {
+                "url-example" : "/api/users",
+                "info" : "Shows a list of users in the database."
+            }
+        },
+        "POST" : {
+            "comments" : {
+                "url-template" : "/api/reviews/1/comments",
+                "info" : "Posts a comment to a game review based on ID"
+            }
+        },
+        "PATCH" : {
+            "comment" : {
+            "url-template" : "/api/comments/2",
+            "info" : "Patches a comment to a game review based on ID"
+            },
+            "review" : {
+                "url-template" : "/api/revies/1",
+                "info" : "Patches a review to a game based on ID"
+            }
+        },
+        "DELETE" : {
+            "comments" : {
+                "url-template" : "/api/comments/1",
+                "info" : "Deletes a comment based on ID"
+            }
+        }
+    }
+}
