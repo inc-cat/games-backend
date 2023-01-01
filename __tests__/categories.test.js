@@ -84,7 +84,7 @@ describe('GET request for specific review ID', function () {
         return request(app)
             .get('/api/reviews/1').expect(200)
     })
-    test.only('Returns entry from provided ID typed into URL', function () {
+    test('Returns entry from provided ID typed into URL', function () {
         return request(app)
             .get('/api/reviews/1').expect(200)
             .then(function (res) {
