@@ -9,12 +9,15 @@ This database will PSQL, and you will interact with it using node-postgres.
 Type above code into terminal before opening host.
 
 [![Host]][Host-url] <br>
+[![HostAPI]][HostAPI-url] <br>
 [![JS]][JS-url] <br>
 [![Jest]][Jest-url] <br>
 [![PSQL]][PSQL-url]
 
 [Host-url]: https://nc-games-r4yd.onrender.com
 [Host]: https://img.shields.io/badge/Hosted%20at-render.com-white
+[HostAPI-url]: https://nc-games-r4yd.onrender.com/api
+[HostAPI]: https://img.shields.io/badge/Host%20info-render.com-black
 [JS-url]: https://en.wikipedia.org/wiki/JavaScript
 [JS]: https://img.shields.io/badge/Programming%20language-JavaScript-yellow
 [Jest-url]: https://www.npmjs.com/package/jest
