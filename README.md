@@ -4,10 +4,17 @@ This will serve as an API for the purpose of accessing application data programm
 
 This database will PSQL, and you will interact with it using node-postgres.
 
+        npm run seed-prod
+        
+Type above code into terminal before opening host.
+
+[![Host]][Host-url] <br>
 [![JS]][JS-url] <br>
 [![Jest]][Jest-url] <br>
 [![PSQL]][PSQL-url]
 
+[Host-url]: https://nc-games-r4yd.onrender.com
+[Host]: https://img.shields.io/badge/Hosted%20at-render.com-white
 [JS-url]: https://en.wikipedia.org/wiki/JavaScript
 [JS]: https://img.shields.io/badge/Programming%20language-JavaScript-yellow
 [Jest-url]: https://www.npmjs.com/package/jest
